@@ -24,7 +24,7 @@ export const storageCheck = (name) =>{
 }
 export const createParse_link_data = (state) => {
     const s = state.service ? "/s-" + state.service : "";
-    const b = state.brand ? "/d-" + state.brand : "";
+    const b = state.brand ? "/b-" + state.brand : "";
     const st = state.style ? "/st-" + state.style : "";
     const link = s + b + st;   
     return link;

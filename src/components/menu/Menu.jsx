@@ -31,11 +31,11 @@ const Menu = (props) => {
     });
 
     if (storageCheck("parse_link")) {
-      window.history.pushState(
-        "",
-        "parse_link",
-        createParse_link_data(getDataObjFromStorage("parse_link"))
-      );
+      // window.history.pushState(
+      //   "",
+      //   "parse_link",
+      //   createParse_link_data(getDataObjFromStorage("parse_link"))
+      // );
       props.addSearchDaraOnReload();
     }
   }, []);
@@ -49,9 +49,11 @@ const Menu = (props) => {
     props.listsData.styles.data.length !== 0
   ) {
     return (
+
       <div className="MenuWrapper">
         <Dropmenu
           key={props.listsData.terms.name}
+          selectedVal={props.search_data.service}
           menuName={props.listsData.terms.menuName}
           itemsData={props.listsData.terms.data}
           dataType={props.listsData.terms.name}
@@ -59,6 +61,7 @@ const Menu = (props) => {
         />
          <Dropmenu
           key={props.listsData.brands_terms.name}
+          selectedVal={props.search_data.brand}
           menuName={props.listsData.brands_terms.menuName}
           itemsData={props.listsData.brands_terms.data}
           dataType={props.listsData.brands_terms.name}
@@ -66,12 +69,13 @@ const Menu = (props) => {
         />
          <Dropmenu
           key={props.listsData.styles.name}
+          selectedVal={props.search_data.style}
           menuName={props.listsData.styles.menuName}
           itemsData={props.listsData.styles.data}
           dataType={props.listsData.styles.name}
           addSerchData={onItemSelect}
         />        
-        <div>info: {props.parse_link_data}</div>
+        
       </div>
     );
   }

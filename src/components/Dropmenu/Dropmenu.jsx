@@ -6,47 +6,35 @@ import "./Dropmenu.scss";
 import { connect } from "react-redux";
 
 const Dropmenu = (props) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [selectetVal, setSelectetVal] = React.useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   const handleMenuItemClick = (event, index) => {
-    handleClose();
-
     const obj = { type: props.dataType, value: index };
     props.addSerchData({ ...obj });
   };
+
+  const handleChange = (event) => {
+    setSelectetVal(event.target.value);
+    const obj = { type: props.dataType, value: event.target.value };
+    props.addSerchData({ ...obj });
+  };
+
   return (
     <div className="dropmenu-wrapper">
-      <Button
-        aria-controls="simple-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        {props.menuName}
-      </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        {props.itemsData.map((i, idx) => (
-          <MenuItem
-            key={i.id}
-            onClick={(event) => handleMenuItemClick(event, i.slug)}
-            data-name={i.itemsData}
-          >
-            {i.label}
-          </MenuItem>
-        ))}
-      </Menu>
+      <label>
+        {props.menuName}:
+        <select value={props.selectedVal} onChange={handleChange}>
+          {props.itemsData.map((i, idx) => (
+            <option
+              key={i.id}              
+              data-name={i.itemsData}
+              value={i.slug}
+            >
+              {i.label}
+            </option>
+          ))}
+        </select>
+      </label>     
     </div>
   );
 };
@@ -54,11 +42,5 @@ const Dropmenu = (props) => {
 const mapStateToProps = (state) => ({
   listsData3: state.listsData,
 });
-
-// const mapDispatchToProps = {
-//   addSerchData,
-//   addSearchDaraOnReload,
-//   getListTerms,
-// };
 
 export default connect(mapStateToProps, null)(Dropmenu);
